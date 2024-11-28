@@ -1,4 +1,4 @@
-module gilmard.com/go-log
+module github.com/gilmardcom/go-log
 
 go 1.22.5
 
