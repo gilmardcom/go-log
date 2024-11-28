@@ -23,21 +23,20 @@ go get github.com/your-username/logger
 
 
 ```text
-logger/
-├── logger/                 # Main package for logging functionality
-│   ├── interface.go        # Definition of the Logger interface
-│   ├── zap_logger.go       # ZapLogger implementation
-│   ├── init.go             # Initialization logic for the logger
-│   └── logger_test.go      # Unit tests for the logger package
-├── examples/               # Example usage of the logger
-│   ├── basic_usage/        # Basic example with initialization and usage
+go-log/
+├── log/                        # Main package for logging functionality
+│   ├── logger_interface.go     # Definition of the Logger interface
+│   ├── logger_zap_impl.go      # ZapLogger implementation
+│   └── logger_test.go          # Unit tests for the logger package
+├── examples/                   # Example usage of the logger
+│   ├── basic_usage/            # Basic example with initialization and usage
 │   │   └── main.go
-│   ├── contextual_logging/ # Example showing `With` usage
+│   ├── contextual_logging/     # Example showing `With` usage
 │   │   └── main.go
-│   └── advanced_features/  # Example showing advanced logging features
+│   └── advanced_features/      # Example showing advanced logging features
 │       └── main.go
-├── LICENSE                 # License for the project
-├── README.md               # Documentation for your project
-├── go.mod                  # Module definition
-└── go.sum                  # Module dependencies
+├── LICENSE                     # License for the project
+├── README.md                   # Documentation for your project
+├── go.mod                      # Module definition
+└── go.sum                      # Module dependencies
 ```
