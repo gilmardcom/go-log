@@ -33,6 +33,10 @@ func (z *ZapLogger) Error(args ...any) {
 	z.sugar.Error(args...)
 }
 
+func (z *ZapLogger) Fatal(args ...any) {
+	z.sugar.Error(args...)
+}
+
 func (z *ZapLogger) With(fields ...any) Logger {
 	return &ZapLogger{sugar: z.sugar.With(fields...)}
 }

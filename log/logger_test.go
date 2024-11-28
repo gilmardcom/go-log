@@ -92,6 +92,16 @@ func TestLoggerError(t *testing.T) {
 	}
 }
 
+func TestLoggerFatal(t *testing.T) {
+	writer, logger := setupTestLogger()
+	logger.Fatal("fatal error message")
+
+	output := writer.String()
+	if !strings.Contains(output, "fatal error message") {
+		t.Errorf("Expected 'fatal error message' in log output, got: %s", output)
+	}
+}
+
 func TestLoggerWith(t *testing.T) {
 	writer, logger := setupTestLogger()
 	contextualLogger := logger.With("key", "value")
