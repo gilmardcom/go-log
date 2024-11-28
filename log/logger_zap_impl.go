@@ -16,7 +16,7 @@ type ZapLogger struct {
 	sugar *zap.SugaredLogger
 }
 
-// Implementation of Logger interface
+// Implementation of Logger interface methods
 func (z *ZapLogger) Debug(args ...interface{}) {
 	z.sugar.Debug(args...)
 }
@@ -42,29 +42,26 @@ func InitLogger(mode string) error {
 	var err error
 	var zapLogger *zap.Logger
 
-	switch strings.ToLower(mode) {
-	default:
-	case "development", "testing":
-		zapLogger, err = zap.NewDevelopment()
-		if err != nil {
-			log.Println("cannot create 'development' logger")
-			return err
-		}
-	case "production":
-		zapLogger, err = zap.NewProduction()
-		if err != nil {
-			log.Println("cannot create 'production' logger")
-			return err
-		}
+	config := zap.NewProductionConfig() // Base configuration for production
+	if strings.ToLower(mode) == "development" {
+		config = zap.NewDevelopmentConfig() // Base configuration for development
 	}
 
-	// Initialize the logger instance with the wrapped ZapLogger
+	// Customize the stack trace level
+	config.EncoderConfig.StacktraceKey = "stacktrace" // Only include stack traces for error levels
+	config.Level = zap.NewAtomicLevelAt(zap.DebugLevel)
+	config.DisableStacktrace = true                  // Disable stack traces by default
+	config.EncoderConfig.TimeKey = "timestamp"       // Rename the time field to "timestamp"
+
+	zapLogger, err = config.Build(zap.AddCaller(), zap.AddCallerSkip(1))
+	if err != nil {
+		log.Println("Failed to initialize logger:", err)
+		return err
+	}
+
 	logger = &ZapLogger{sugar: zapLogger.Sugar()}
-
-	defer zapLogger.Sync() // Flushes buffer, if any
-
+	defer zapLogger.Sync() // Flush logs
 	logger.Info("Logger successfully initialized")
-
 	return nil
 }
 
