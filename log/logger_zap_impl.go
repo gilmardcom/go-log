@@ -60,7 +60,12 @@ func InitLogger(mode string) error {
 	}
 
 	logger = &ZapLogger{sugar: zapLogger.Sugar()}
-	defer zapLogger.Sync() // Flush logs
+	// Flush logs
+	defer func() {
+		if syncErr := zapLogger.Sync(); syncErr != nil {
+			log.Printf("Error syncing logger: %v", syncErr)
+		}
+	}()
 	logger.Info("Logger successfully initialized")
 	return nil
 }
