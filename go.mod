@@ -1,6 +1,6 @@
 module github.com/gilmardcom/go-log
 
-go 1.22.5
+go 1.23.3
 
 require go.uber.org/zap v1.27.0
 
