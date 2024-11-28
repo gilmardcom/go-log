@@ -2,7 +2,7 @@ package main
 
 import (
 	l "log"
-	"gilmard.com/go-log/log"
+	"github.com/gilmardcom/go-log/log"
 )
 
 func main() {
