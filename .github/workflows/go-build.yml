@@ -16,9 +16,6 @@ jobs:
       matrix:
         go-version: [1.21, 1.22]
         os: [ubuntu-latest, windows-latest, macos-latest]
-        # exclude:
-        #   - os: windows-latest
-        #     go-version: 1.18
       fail-fast: false # Continue running all combinations even if one fails
 
     steps:
@@ -62,38 +59,8 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
 
-      - name: Set up Go
-        uses: actions/setup-go@v4
+      - name: Run GolangCI-Lint
+        uses: golangci/golangci-lint-action@v3
         with:
-          go-version: 1.20
-
-      - name: Install GolangCI-Lint
-        run: |
-          mkdir -p $(go env GOPATH)/bin
-          curl -sSfL https://raw.githubusercontent.com/golangci/golangci-lint/master/install.sh | sh -s -- -b $(go env GOPATH)/bin v1.51.2
-
-      - name: Add GolangCI-Lint to PATH
-        run: echo "$(go env GOPATH)/bin" >> $GITHUB_PATH
-
-      - name: Run linting
-        run: golangci-lint run ./...
-
-  # build-docker:
-  #   if: github.event_name == 'push'
-  #   runs-on: ubuntu-latest
-  #   steps:
-  #     - name: Checkout code
-  #       uses: actions/checkout@v3
-
-  #     - name: Set up Docker Buildx
-  #       uses: docker/setup-buildx-action@v2
-
-  #     - name: Build Docker image
-  #       run: |
-  #         docker build -t my-go-app:${{ github.sha }} .
-
-  #     - name: Push Docker image
-  #       if: github.ref == 'refs/heads/main'
-  #       run: |
-  #         docker tag my-go-app:${{ github.sha }} my-docker-repo/my-go-app:latest
-  #         docker push my-docker-repo/my-go-app:latest
+          version: v1.51.2
+          args: run ./...
