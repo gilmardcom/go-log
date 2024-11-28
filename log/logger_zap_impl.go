@@ -17,23 +17,23 @@ type ZapLogger struct {
 }
 
 // Implementation of Logger interface methods
-func (z *ZapLogger) Debug(args ...interface{}) {
+func (z *ZapLogger) Debug(args ...any) {
 	z.sugar.Debug(args...)
 }
 
-func (z *ZapLogger) Info(args ...interface{}) {
+func (z *ZapLogger) Info(args ...any) {
 	z.sugar.Info(args...)
 }
 
-func (z *ZapLogger) Warn(args ...interface{}) {
+func (z *ZapLogger) Warn(args ...any) {
 	z.sugar.Warn(args...)
 }
 
-func (z *ZapLogger) Error(args ...interface{}) {
+func (z *ZapLogger) Error(args ...any) {
 	z.sugar.Error(args...)
 }
 
-func (z *ZapLogger) With(fields ...interface{}) Logger {
+func (z *ZapLogger) With(fields ...any) Logger {
 	return &ZapLogger{sugar: z.sugar.With(fields...)}
 }
 

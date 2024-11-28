@@ -2,11 +2,11 @@ package log
 
 // Logger defines a standard logging interface
 type Logger interface {
-	Debug(args ...interface{})
-	Info(args ...interface{})
-	Warn(args ...interface{})
-	Error(args ...interface{})
-	With(fields ...interface{}) Logger
+	Debug(args ...any)
+	Info(args ...any)
+	Warn(args ...any)
+	Error(args ...any)
+	With(fields ...any) Logger
 }
 
 // GetLogger returns the Logger instance
